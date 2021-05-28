@@ -108,7 +108,7 @@ def constrain(v, min_v, max_v):
 		return v
     		
 GUARD_GAIN = 100.0
-angle_offset = 2.0   		
+#angle_offset = 2.0   		
     		
 def pid():
 	global error,speed,pTerm,iTerm,dTerm
@@ -137,8 +137,9 @@ if __name__ == "__main__":
 
 	#print (" Reading Data of Gyroscope and Accelerometer")
 	timer = getTimestamp()
-	deltaT = (getTimestamp() - timer)/1000000.0
+	#deltaT = (getTimestamp() - timer)/1000000.0
 	read_all()
+	deltaT = (getTimestamp() - timer)/1000000.0
 
 	last_x = get_x_rotation(accl_scaled_x, accl_scaled_y, accl_scaled_z)
 	last_y = get_y_rotation(accl_scaled_x, accl_scaled_y, accl_scaled_z)
@@ -149,6 +150,10 @@ if __name__ == "__main__":
 
 	gyro_total_x = last_x - gyro_offset_x
 	gyro_total_y = last_y - gyro_offset_y
+	
+	
+	gyro_y_delta = (gyro_total_y * deltaT)
+	angle_offset = K0 * (last_y + gyro_y_delta) + (K1 * last_y)
 	
 	while True:
 		t = getTimestamp()
