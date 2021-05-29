@@ -126,7 +126,7 @@ def getTimestamp():
 
 if __name__ == "__main__":
 	
-	bus = smbus.SMBus(1) 	# or bus = smbus.SMBus(0) for older version boards
+	bus = smbus.SMBus(2) 	# or bus = smbus.SMBus(0) for older version boards
 
 	Device_Address = 0x68   # MPU6050 device address
 
@@ -180,18 +180,18 @@ if __name__ == "__main__":
 
 		#    printf("[AFTER] gyro_scaled_y=%f, deltaT=%lf, rotation_y=%f, last_y=%f\n", (double)gyro_scaled_y, (double)deltaT, (double)rotation_y, (double) last_y);
 
-		#if (last_y < -60.0 || last_y > 60.0) 
-		#stop_motors()
+		if (last_y < -60.0 || last_y > 60.0) 
+		stop_motors()
 
 		pid()
 		print(error, speed, pTerm, iTerm, dTerm)
 
-	    	#motors(speed, 0.0, 0.0)
+	    	motors(speed, 0.0, 0.0)
 	    
-	    	#delay(10)
+	    	time.sleep(10)
 	  
 
-	  	#stop_motors();
+	  	stop_motors();
 	  
     		
     	
