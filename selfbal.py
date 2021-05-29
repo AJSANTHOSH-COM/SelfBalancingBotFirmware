@@ -74,6 +74,9 @@ def get_x_rotation(x,y,z):
 	
 
 def read_all():
+	global accl_scaled_x, accl_scaled_y,accl_scaled_z
+	global gyro_scaled_x, gyro_scaled_y, gyro_scaled_z 
+	
 	acclX = read_raw_data(ACCEL_XOUT_H)
 	acclY = read_raw_data(ACCEL_YOUT_H)
 	acclZ = read_raw_data(ACCEL_ZOUT_H)
@@ -81,10 +84,6 @@ def read_all():
 	gyroX = read_raw_data(GYRO_XOUT_H)
 	gyroY = read_raw_data(GYRO_YOUT_H)
 	gyroZ = read_raw_data(GYRO_ZOUT_H)
-
-
-	global accl_scaled_x, accl_scaled_y,accl_scaled_z
-	global gyro_scaled_x, gyro_scaled_y, gyro_scaled_z 
 
 	accl_scaled_x = acclX / 16384.0
 	accl_scaled_y = acclY / 16384.0
@@ -113,29 +112,27 @@ GUARD_GAIN = 100.0
 def pid():
 	global error,speed,pTerm,iTerm,dTerm
 	error = last_y - angle_offset;
-
 	pTerm = Kp * error
 	integrated_error=0
 	integrated_error = 0.95*integrated_error + error;
 	iTerm = Ki * integrated_error;
-
 	last_error=error;
 	dTerm = Kd * (error - last_error);
 	#last_error = error;
-
 	speed = constrain(K*(pTerm + iTerm + dTerm), -GUARD_GAIN, GUARD_GAIN)	   		
+
 def getTimestamp():
 	return int(time.time())   		
 
 if __name__ == "__main__":
 	
-	bus = smbus.SMBus(2) 	# or bus = smbus.SMBus(0) for older version boards
+	bus = smbus.SMBus(1) 	# or bus = smbus.SMBus(0) for older version boards
 
 	Device_Address = 0x68   # MPU6050 device address
 
 	MPU_Init()
 
-	#print (" Reading Data of Gyroscope and Accelerometer")
+	print (" Reading Data of Gyroscope and Accelerometer")
 	timer = getTimestamp()
 	#deltaT = (getTimestamp() - timer)/1000000.0
 	read_all()
