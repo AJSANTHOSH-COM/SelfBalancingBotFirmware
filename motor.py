@@ -22,19 +22,19 @@ def motors(speed,left_offset,right_offset):
 	
 	#left motor
 	if left_speed<0:
-		PWM.set_duty_cycle(LF,-left_speed)
-		PWM.set_duty_cycle(LB,0)
+		PWM.set_duty_cycle(LB,-left_speed)
+		PWM.set_duty_cycle(LF,0)
 	elif left_speed>0:
-		PWM.set_duty_cycle(LB,left_speed)                
-		PWM.set_duty_cycle(LF,0)        
+		PWM.set_duty_cycle(LF,left_speed)                
+		PWM.set_duty_cycle(LB,0)        
 
 	#right motor
 	if right_speed<0:
-		PWM.set_duty_cycle(RF,-right_speed)
-		PWM.set_duty_cycle(RB,0)
-	elif right_speed>0:
-		PWM.set_duty_cycle(RB,right_speed)
+		PWM.set_duty_cycle(RB,-right_speed)
 		PWM.set_duty_cycle(RF,0)
+	elif right_speed>0:
+		PWM.set_duty_cycle(RF,right_speed)
+		PWM.set_duty_cycle(RB,0)
 
 
 while 1:
