@@ -145,13 +145,13 @@ def constrain(v, min_v, max_v):
 		return v
     		
 GUARD_GAIN = 100.0
-#angle_offset = 2.0   		
+angle_offset = 2.0   		
     		
 def pid():
 	global error,speed,pTerm,iTerm,dTerm
 	error = last_y - angle_offset;
 	pTerm = Kp * error
-	integrated_error=0
+	#integrated_error=0
 	integrated_error = 0.95*integrated_error + error;
 	iTerm = Ki * integrated_error;
 	last_error=error;
@@ -187,8 +187,8 @@ if __name__ == "__main__":
 	gyro_total_y = last_y - gyro_offset_y
 	
 	
-	gyro_y_delta = (gyro_total_y * deltaT)
-	angle_offset = K0 * (last_y + gyro_y_delta) + (K1 * last_y)
+	#gyro_y_delta = (gyro_total_y * deltaT)
+	#angle_offset = K0 * (last_y + gyro_y_delta) + (K1 * last_y)
 	
 	while True:
 		t = getTimestamp()
