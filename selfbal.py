@@ -28,16 +28,18 @@ K0 =  0.98
 K1 =  0.02
 
 
-#initializing motors
-LF="P8_13"
-LB="P8_19"
-RF="P9_21"
-RB="P9_22"
 
-PWM.start(LF,0,1000)
-PWM.start(LB,0,1000)
-PWM.start(RF,0,1000)
-PWM.start(RB,0,1000)
+#initializing motors
+def init_motors():
+	LF="P8_13"
+	LB="P8_19"
+	RF="P9_21"
+	RB="P9_22"
+
+	PWM.start(LF,0,1000)
+	PWM.start(LB,0,1000)
+	PWM.start(RF,0,1000)
+	PWM.start(RB,0,1000)
 
 def stop_motors():
 	PWM.set_duty_cycle(LF,0)
@@ -134,7 +136,7 @@ def read_all():
 
 	#print(accl_scaled_x, accl_scaled_y, accl_scaled_z, gyro_scaled_x, gyro_scaled_y, gyro_scaled_z)
 	
-	time.sleep(0.5)
+	time.sleep(0.01)
 	
 def constrain(v, min_v, max_v):
 	if (v <= min_v):
@@ -168,8 +170,12 @@ if __name__ == "__main__":
 
 	Device_Address = 0x68   # MPU6050 device address
 
+	init_motors()
+	time.sleep(0.01)
+	
 	MPU_Init()
-
+	time.sleep(0.01)
+		
 	print (" Reading Data of Gyroscope and Accelerometer")
 	timer = getTimestamp()
 	#deltaT = (getTimestamp() - timer)/1000000.0
@@ -226,15 +232,11 @@ if __name__ == "__main__":
 
 	    	motors(speed, 0.0, 0.0)
 	    
-	    	time.sleep(10)
+	    	time.sleep(0.01)
 	  
 
 	  	stop_motors();
 
-PWM.stop(LF)
-PWM.stop(LB)
-PWM.stop(RF)
-PWM.stop(RB)
 PWM.cleanup()
 	  
     		
