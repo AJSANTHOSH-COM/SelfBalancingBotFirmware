@@ -224,8 +224,8 @@ if __name__ == "__main__":
 
 		#    printf("[AFTER] gyro_scaled_y=%f, deltaT=%lf, rotation_y=%f, last_y=%f\n", (double)gyro_scaled_y, (double)deltaT, (double)rotation_y, (double) last_y);
 
-		if (last_y < -60.0 || last_y > 60.0) 
-		stop_motors()
+		if (last_y < -60.0 || last_y > 60.0): 
+			stop_motors()
 
 		pid()
 		print(error, speed, pTerm, iTerm, dTerm)
