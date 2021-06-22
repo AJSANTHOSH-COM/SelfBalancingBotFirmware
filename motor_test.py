@@ -38,9 +38,9 @@ def motors(speed,left_offset,right_offset):
 
 
 while 1:
-	#motors(30,0,0)
-	#time.sleep(100)
+	motors(30,0,0)
+	time.sleep(100)
 	stop_motors()
-#PWM.stop(myPWM)
+PWM.stop(myPWM)
 PWM.cleanup()
 
